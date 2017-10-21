@@ -1,0 +1,99 @@
+//
+// UI/UX - Portifolio
+//
+
+//Loop for CSS3 prefixes 
+@mixin css3($property, $value, $prefixes: (webkit moz ms o)) {
+    @each $prefix in $prefixes {
+      #{'-' + $prefix + '-' + $property}: $value;
+    }
+    // Output standard non-prefixed declaration
+    #{$property}: $value;
+  }
+
+// Select Especific CSS for a type of Brownser
+@mixin xbrowser($browsers: Mozilla) {
+    @each $browser in $browsers {
+      html[data-browser*="#{$browser}"] & {
+        @content;
+      }
+    }
+  }
+
+@mixin rotate($rotation: 7deg){
+    @include css3(transform, rotate($rotation));
+}
+
+
+@mixin font-face {
+    font-family: system;
+    font-style: normal;
+    font-weight: 300;
+    src: local(".SFNSText-Light"), local(".HelveticaNeueDeskInterface-Light"), local(".LucidaGrandeUI"), local("Ubuntu Light"), local("Segoe UI Light"), local("Roboto-Light"), local("DroidSans"), local("Tahoma");
+    }
+
+/*@mixin rotate2($rotation: 10deg){
+        @include xbrowser(){
+            transform: rotate($rotation);
+        }
+    }*/
+
+
+// Atom
+$fontFamily: system;
+$fontSize: 1rem;
+$colorWhite: #fff;
+$colorBlack: #000;
+
+* {margin:0px; padding:0px;}
+main {max-width: 960px;}
+
+/* Hero */
+.hero {
+    margin-top:-10%;
+    @include font-face;
+    font-size: $fontSize;
+    background-image: url(../img/hero-bg.jpeg);
+    background-repeat:no-repeat;
+    background-size:contain;
+    background-position:center;
+    *{
+        transform: skewY(-7deg);
+    }
+    p{
+        width:50%;
+        padding:10%;
+        font-size:$fontSize * 1.5; 
+        color:$colorWhite;
+        background-color: #f4f4f4;
+    }
+    a{
+        color: $colorWhite;
+    }
+}
+
+.hero, .contact {
+    width:100%;
+    padding:10%;
+    background-color: $colorBlack;
+    transform: skewY(7deg);
+    *{
+        transform: skewY(-7deg);
+        color:#fff;
+    }
+}
+
+.comments{
+    width:100%;
+    padding:10%;
+    transform: skewY(-7deg);
+    background-color: gray;
+    *{
+        transform: skewY(7deg);
+    }
+}
+
+.contact {
+    margin-bottom:-50%;
+}
+

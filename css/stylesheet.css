@@ -1,0 +1,56 @@
+/*@mixin rotate2($rotation: 10deg){
+        @include xbrowser(){
+            transform: rotate($rotation);
+        }
+    }*/
+* {
+  margin: 0px;
+  padding: 0px; }
+
+main {
+  max-width: 960px; }
+
+/* Hero */
+.hero {
+  margin-top: -10%;
+  font-family: system;
+  font-style: normal;
+  font-weight: 300;
+  src: local(".SFNSText-Light"), local(".HelveticaNeueDeskInterface-Light"), local(".LucidaGrandeUI"), local("Ubuntu Light"), local("Segoe UI Light"), local("Roboto-Light"), local("DroidSans"), local("Tahoma");
+  font-size: 1rem;
+  background-image: url(../img/hero-bg.jpeg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center; }
+  .hero * {
+    transform: skewY(-7deg); }
+  .hero p {
+    width: 50%;
+    padding: 10%;
+    font-size: 1.5rem;
+    color: #fff;
+    background-color: #f4f4f4; }
+  .hero a {
+    color: #fff; }
+
+.hero, .contact {
+  width: 100%;
+  padding: 10%;
+  background-color: #000;
+  transform: skewY(7deg); }
+  .hero *, .contact * {
+    transform: skewY(-7deg);
+    color: #fff; }
+
+.comments {
+  width: 100%;
+  padding: 10%;
+  transform: skewY(-7deg);
+  background-color: gray; }
+  .comments * {
+    transform: skewY(7deg); }
+
+.contact {
+  margin-bottom: -50%; }
+
+/*# sourceMappingURL=stylesheet.css.map */
