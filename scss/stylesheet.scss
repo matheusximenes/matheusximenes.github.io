@@ -1,8 +1,9 @@
 //
 // UI/UX - Portifolio
+// Front End Developer - Portifolio Matt Ximenes
 //
 
-//Loop for CSS3 prefixes 
+//Loop for CSS3 prefixes - type 1 
 @mixin css3($property, $value, $prefixes: (webkit moz ms o)) {
     @each $prefix in $prefixes {
       #{'-' + $prefix + '-' + $property}: $value;
@@ -10,6 +11,15 @@
     // Output standard non-prefixed declaration
     #{$property}: $value;
   }
+
+//Loop for CSS3 prefixes - type 2
+@mixin other_css3($property, $value, $prefixes: (webkit moz ms o)) {
+    @each $prefix in $prefixes {
+        #{$property}: #{'-'+$prefix+'-'+$value};
+    }
+    // Output standard non-prefixed declaration
+    #{$property}: $value;
+}
 
 // Select Especific CSS for a type of Brownser
 @mixin xbrowser($browsers: Mozilla) {
@@ -20,80 +30,113 @@
     }
   }
 
+//Rotation  
 @mixin rotate($rotation: 7deg){
-    @include css3(transform, rotate($rotation));
-}
+    @include css3(transform, rotate($rotation));}
 
+//Rounded
+@mixin rounded($radius: 0.5em) {
+    @include css3(border-radius, $radius);}
 
-@mixin font-face {
-    font-family: system;
-    font-style: normal;
-    font-weight: 300;
-    src: local(".SFNSText-Light"), local(".HelveticaNeueDeskInterface-Light"), local(".LucidaGrandeUI"), local("Ubuntu Light"), local("Segoe UI Light"), local("Roboto-Light"), local("DroidSans"), local("Tahoma");
+//Gradient
+@mixin gradient($from, $to, $direction: top) {
+    background-color: $from;
+    @include other_css3(background, linear-gradient($direction, $from, $to));
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');
     }
+
+//Main Call    
+@mixin font-face {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;}
 
 /*@mixin rotate2($rotation: 10deg){
         @include xbrowser(){
             transform: rotate($rotation);
         }
-    }*/
+}*/
 
 
-// Atom
+// Boson
 $fontFamily: system;
 $fontSize: 1rem;
 $colorWhite: #fff;
 $colorBlack: #000;
 
-* {margin:0px; padding:0px;}
-main {max-width: 960px;}
+//Atom
+a { text-decoration: none;}
 
-/* Hero */
+main {
+    /*max-width: 960px; 
+    margin: auto;*/
+    @include font-face;}
+
+// Molecule
+.hero, .comments, .Knowledge {
+   // transform: skewY(7deg);
+    color:#fff;
+    overflow: hidden;
+    .reverse {
+        //transform: skewY(-7deg);
+    }
+}
+
+
+// Organismis
 .hero {
-    margin-top:-10%;
-    @include font-face;
-    font-size: $fontSize;
-    background-image: url(../img/hero-bg.jpeg);
-    background-repeat:no-repeat;
-    background-size:contain;
-    background-position:center;
-    *{
-        transform: skewY(-7deg);
+    
+    .bg {
+        background-image: url(../img/hero-bg.jpeg);
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding:40px 10%;
+        text-align: center;
+
+        p {margin-bottom:30px;}
+
+        .arrow-works {
+            border: 2px solid #fff;
+            padding:10px;
+            color:#fff;
+            font-weight: bold;
+            @include rounded();
+        }
     }
-    p{
-        width:50%;
-        padding:10%;
-        font-size:$fontSize * 1.5; 
-        color:$colorWhite;
-        background-color: #f4f4f4;
-    }
-    a{
-        color: $colorWhite;
+
+}
+
+.skills {
+    .skill {
+        text-align: center;
+        padding:20px 10%;
+        
+        i {
+            font-size: 2rem;
+            color: #fff;
+            padding:10px;
+            @include rounded(1em);
+            @include gradient(#FD8237, #FF4500);
+        }
     }
 }
 
-.hero, .contact {
-    width:100%;
-    padding:10%;
-    background-color: $colorBlack;
-    transform: skewY(7deg);
-    *{
-        transform: skewY(-7deg);
-        color:#fff;
+.testemonial {
+
+    background-image: url(../img/testemonial-bg.jpeg);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    font-family: 'Vidaloka', serif;
+    padding:20px 10%;
+    text-align: center;
+
+    img {
+        width: 100px;
+        @include rounded(50px);
     }
+    p {}
 }
-
-.comments{
-    width:100%;
-    padding:10%;
-    transform: skewY(-7deg);
-    background-color: gray;
-    *{
-        transform: skewY(7deg);
-    }
-}
-
-.contact {
-    margin-bottom:-50%;
-}
-
