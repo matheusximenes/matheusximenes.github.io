@@ -3,41 +3,37 @@ var gulp = require('gulp'),
     notify = require("gulp-notify")
     bower = require('gulp-bower');
 
-var config = {
-    sassPath: './resources/sass',
-    bowerDir: './bower_components'
+var paths = {
+    css: './css/',
+    sass: './scss/',
+    bower: './bower_components',
+    fonts: './fonts'
 }
 
 gulp.task('bower', function() {
     return bower()
-        .pipe(gulp.dest(config.bowerDir))
+        .pipe(gulp.dest(paths.bower))
 });
 
 gulp.task('icons', function() {
-    return gulp.src(config.bowerDir + '/fontawesome/fonts/**.*')
-        .pipe(gulp.dest('./public/fonts'));
+    return gulp.src(paths.bower + '/fontawesome/fonts/**.*')
+        .pipe(gulp.dest(paths.fonts));
 });
 
-gulp.task('css', function() {
-    return gulp.src(config.sassPath + '/style.scss')
-        .pipe(sass({
-            style: 'compressed',
-            loadPath: [
-                './resources/sass',
-                config.bowerDir + '/bootstrap-sass-official/assets/stylesheets',
-                config.bowerDir + '/fontawesome/scss',
-            ]
-        })
-            .on("error", notify.onError(function (error) {
+gulp.task('style', function() {
+    return sass(paths.sass + '**/*.scss' 
+            //,{style: 'compressed'}
+            )
+           .on("error", notify.onError(function (error) {
                 return "Error: " + error.message;
-            })))
-        .pipe(gulp.dest('./public/css'));
+            }))
+        .pipe(gulp.dest(paths.css));
 });
 
 
 // Rerun the task when a file changes
 gulp.task('watch', function() {
-    gulp.watch(config.sassPath + '/**/*.scss', ['css']);
+    gulp.watch(paths.sass + '/**/*.scss', ['style']);
 });
     
-gulp.task('default', ['bower', 'icons', 'css']);
+gulp.task('default', ['bower', 'icons', 'style', 'watch']);
